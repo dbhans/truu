@@ -1,243 +1,242 @@
--- phpMyAdmin SQL Dump
--- version 4.8.0.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Feb 03, 2019 at 10:45 PM
--- Server version: 10.1.32-MariaDB
--- PHP Version: 7.2.5
+-- MySQL Workbench Forward Engineering
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema ScheduleMatrix
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `ScheduleMatrix` ;
+
+-- -----------------------------------------------------
+-- Schema ScheduleMatrix
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `ScheduleMatrix` DEFAULT CHARACTER SET utf8 ;
+USE `ScheduleMatrix` ;
+
+-- -----------------------------------------------------
+-- Table `Cours`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Cours` ;
+
+CREATE TABLE IF NOT EXISTS `Cours` (
+  `idCours` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `code` VARCHAR(10) NULL,
+  `Unit` VARCHAR(6) NULL,
+  `NumberHours` INT NULL,
+  `Description` MEDIUMTEXT NULL,
+  `status` BIT(2) NULL,
+  PRIMARY KEY (`idCours`))
+ENGINE = InnoDB;
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+-- -----------------------------------------------------
+-- Table `Classroom`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Classroom` ;
 
---
--- Database: `schedule`
---
+CREATE TABLE IF NOT EXISTS `Classroom` (
+  `idClassroom` INT NOT NULL AUTO_INCREMENT,
+  `Numberplace` VARCHAR(45) NULL,
+  `Room` INT NULL,
+  `status` BIT(2) NULL,
+  `Classroomcol` VARCHAR(45) NULL,
+  PRIMARY KEY (`idClassroom`))
+ENGINE = InnoDB;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `availability`
---
+-- -----------------------------------------------------
+-- Table `Programs`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Programs` ;
 
-CREATE TABLE `availability` (
-  `idAvailability` int(11) NOT NULL,
-  `day` varchar(45) DEFAULT NULL,
-  `time` varchar(45) DEFAULT NULL,
-  `note` varchar(45) DEFAULT NULL,
-  `NumbersWeek` varchar(45) DEFAULT NULL,
-  `status` bit(2) DEFAULT NULL,
-  `Created` datetime DEFAULT NULL,
-  `Modified` datetime DEFAULT NULL,
-  `Personnel_idPersonnel` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `Programs` (
+  `idPrograms` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(45) NULL,
+  `Code` VARCHAR(45) NULL,
+  `Description` VARCHAR(255) NULL,
+  `Requierements` VARCHAR(45) NULL,
+  `status` BIT(2) NULL,
+  `Cours_idCours` INT NOT NULL,
+  PRIMARY KEY (`idPrograms`))
+ENGINE = InnoDB;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `classroom`
---
+-- -----------------------------------------------------
+-- Table `Personnels`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Personnels` ;
 
-CREATE TABLE `classroom` (
-  `idClassroom` int(11) NOT NULL,
-  `Numberplace` varchar(45) DEFAULT NULL,
-  `Quantity` int(11) DEFAULT NULL,
-  `note` varchar(45) DEFAULT NULL,
-  `status` bit(2) DEFAULT NULL,
-  `Created` datetime DEFAULT NULL,
-  `Modified` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `Personnels` (
+  `idPersonnel` INT NOT NULL AUTO_INCREMENT,
+  `fristName` VARCHAR(45) NULL,
+  `lastName` VARCHAR(45) NULL,
+  `personalEmail` VARCHAR(45) NULL,
+  `emailMatrix` VARCHAR(45) NULL,
+  `position` VARCHAR(45) NULL,
+  `profession` VARCHAR(45) NULL,
+  `note` VARCHAR(45) NULL,
+  `status` BIT(2) NULL,
+  `code` INT(6) NULL,
+  PRIMARY KEY (`idPersonnel`))
+ENGINE = InnoDB;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `cours`
---
+-- -----------------------------------------------------
+-- Table `Availability`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Availability` ;
 
-CREATE TABLE `cours` (
-  `idCours` int(11) NOT NULL,
-  `name` varchar(45) DEFAULT NULL,
-  `code` varchar(45) DEFAULT NULL,
-  `Unit` varchar(45) DEFAULT NULL,
-  `NumberHours` int(11) DEFAULT NULL,
-  `Description` varchar(255) DEFAULT NULL,
-  `status` bit(2) DEFAULT NULL,
-  `Created` datetime DEFAULT NULL,
-  `Modified` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `Availability` (
+  `idAvailability` INT NOT NULL AUTO_INCREMENT,
+  `day` VARCHAR(45) NULL,
+  `statTime` DATETIME NULL,
+  `endTime` DATETIME NULL,
+  `note` VARCHAR(45) NULL,
+  `notavailable` BIT(2) NULL,
+  `status` BIT(2) NULL,
+  `Personnel_idPersonnel` INT NOT NULL,
+  PRIMARY KEY (`idAvailability`))
+ENGINE = InnoDB;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `group`
---
+-- -----------------------------------------------------
+-- Table `group`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `group` ;
 
-CREATE TABLE `group` (
-  `idgroup` int(11) NOT NULL,
-  `code` varchar(45) DEFAULT NULL,
-  `description` varchar(45) DEFAULT NULL,
-  `numberstudent` varchar(45) DEFAULT NULL,
-  `Starting` date DEFAULT NULL,
-  `Ending` date DEFAULT NULL,
-  `numberduration` int(11) DEFAULT NULL,
-  `numbertime` varchar(25) DEFAULT NULL,
-  `status` bit(2) DEFAULT NULL,
-  `Created` datetime DEFAULT NULL,
-  `Modified` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `group` (
+  `idgroup` INT NOT NULL AUTO_INCREMENT,
+  `code` VARCHAR(45) NULL,
+  `description` VARCHAR(45) NULL,
+  `numberstudent` VARCHAR(45) NULL,
+  `Starting` DATE NULL,
+  `Ending` DATE NULL,
+  `numberduration` INT NULL,
+  `numbertime` VARCHAR(25) NULL,
+  `status` BIT(2) NULL,
+  `Created` DATETIME NULL,
+  `Modified` DATETIME NULL,
+  PRIMARY KEY (`idgroup`))
+ENGINE = InnoDB;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `personnel`
---
+-- -----------------------------------------------------
+-- Table `Time`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Time` ;
 
-CREATE TABLE `personnel` (
-  `idPersonnel` int(11) NOT NULL,
-  `fristname` varchar(45) DEFAULT NULL,
-  `lastname` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `position` varchar(45) DEFAULT NULL,
-  `profession` varchar(45) DEFAULT NULL,
-  `emailmatrix` varchar(45) DEFAULT NULL,
-  `teaching` varchar(45) DEFAULT NULL,
-  `note` varchar(45) DEFAULT NULL,
-  `status` bit(2) DEFAULT NULL,
-  `Created` datetime DEFAULT NULL,
-  `Modified` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `Time` (
+  `idTime` INT NOT NULL AUTO_INCREMENT,
+  `startTime` DATETIME NULL,
+  `endTime` DATETIME NULL,
+  PRIMARY KEY (`idTime`))
+ENGINE = InnoDB;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `programs`
---
+-- -----------------------------------------------------
+-- Table `Semesters`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Semesters` ;
 
-CREATE TABLE `programs` (
-  `idPrograms` int(11) NOT NULL,
-  `Name` varchar(45) DEFAULT NULL,
-  `Code` varchar(45) DEFAULT NULL,
-  `Description` varchar(255) DEFAULT NULL,
-  `NumberOfCourses` int(11) DEFAULT NULL,
-  `Requierements` varchar(45) DEFAULT NULL,
-  `status` bit(2) DEFAULT NULL,
-  `Created` datetime DEFAULT NULL,
-  `Modified` datetime DEFAULT NULL,
-  `Cours_idCours` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `Semesters` (
+  `idSemesters` INT NOT NULL AUTO_INCREMENT,
+  `semester` VARCHAR(15) NULL,
+  `startTime` DATETIME NULL,
+  `endTime` DATETIME NULL,
+  PRIMARY KEY (`idSemesters`))
+ENGINE = InnoDB;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `schedule`
---
+-- -----------------------------------------------------
+-- Table `Schedule`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Schedule` ;
 
-CREATE TABLE `schedule` (
-  `Classroom_idClassroom` int(11) NOT NULL,
-  `group_idgroup` int(11) NOT NULL,
-  `Personnel_idPersonnel` int(11) NOT NULL,
-  `Cours_idCours` int(11) NOT NULL,
-  `Day` date DEFAULT NULL,
-  `starting` int(11) DEFAULT NULL,
-  `ending` int(11) DEFAULT NULL,
-  `name` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `Schedule` (
+  `Classroom_idClassroom` INT NULL,
+  `group_idgroup` INT NOT NULL,
+  `Personnel_idPersonnel` INT NULL,
+  `Cours_idCours` INT NOT NULL,
+  `Time_idTime` INT NOT NULL,
+  `Semesters_idSemesters` INT NOT NULL,
+  PRIMARY KEY (`group_idgroup`, `Cours_idCours`))
+ENGINE = InnoDB;
 
---
--- Indexes for dumped tables
---
 
---
--- Indexes for table `availability`
---
-ALTER TABLE `availability`
-  ADD PRIMARY KEY (`idAvailability`);
+-- -----------------------------------------------------
+-- Table `Logs`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Logs` ;
 
---
--- Indexes for table `classroom`
---
-ALTER TABLE `classroom`
-  ADD PRIMARY KEY (`idClassroom`);
+CREATE TABLE IF NOT EXISTS `Logs` (
+  `idlog` INT NOT NULL AUTO_INCREMENT,
+  `creation` DATETIME NULL,
+  `modified` DATETIME NULL,
+  `createdBy` INT NULL,
+  `modifiedBy` INT NULL,
+  `tableName` VARCHAR(45) NULL,
+  `modifiedField` VARCHAR(45) NULL,
+  `lastValue` VARCHAR(45) NULL,
+  PRIMARY KEY (`idlog`))
+ENGINE = InnoDB;
 
---
--- Indexes for table `cours`
---
-ALTER TABLE `cours`
-  ADD PRIMARY KEY (`idCours`);
 
---
--- Indexes for table `group`
---
-ALTER TABLE `group`
-  ADD PRIMARY KEY (`idgroup`);
+-- -----------------------------------------------------
+-- Table `TeacherPreferences`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `TeacherPreferences` ;
 
---
--- Indexes for table `personnel`
---
-ALTER TABLE `personnel`
-  ADD PRIMARY KEY (`idPersonnel`);
+CREATE TABLE IF NOT EXISTS `TeacherPreferences` (
+  `Personnels_idPersonnel` INT NOT NULL,
+  `Cours_idCours` INT NOT NULL,
+  `Note` VARCHAR(150) NULL,
+  `rank` BIT(8) NULL,
+  PRIMARY KEY (`Personnels_idPersonnel`, `Cours_idCours`))
+ENGINE = InnoDB;
 
---
--- Indexes for table `programs`
---
-ALTER TABLE `programs`
-  ADD PRIMARY KEY (`idPrograms`);
 
---
--- Indexes for table `schedule`
---
-ALTER TABLE `schedule`
-  ADD PRIMARY KEY (`Classroom_idClassroom`,`group_idgroup`,`Personnel_idPersonnel`,`Cours_idCours`);
+-- -----------------------------------------------------
+-- Table `AdminComments`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `AdminComments` ;
 
---
--- AUTO_INCREMENT for dumped tables
---
+CREATE TABLE IF NOT EXISTS `AdminComments` (
+  `idAdminComments` INT NOT NULL,
+  `Comment` VARCHAR(255) NULL,
+  PRIMARY KEY (`idAdminComments`))
+ENGINE = InnoDB;
 
---
--- AUTO_INCREMENT for table `availability`
---
-ALTER TABLE `availability`
-  MODIFY `idAvailability` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `classroom`
---
-ALTER TABLE `classroom`
-  MODIFY `idClassroom` int(11) NOT NULL AUTO_INCREMENT;
+-- -----------------------------------------------------
+-- Table `Softwares`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Softwares` ;
 
---
--- AUTO_INCREMENT for table `cours`
---
-ALTER TABLE `cours`
-  MODIFY `idCours` int(11) NOT NULL AUTO_INCREMENT;
+CREATE TABLE IF NOT EXISTS `Softwares` (
+  `idSoftware` INT NOT NULL,
+  `Name` VARCHAR(45) NULL,
+  `Description` VARCHAR(45) NULL,
+  `Type` VARCHAR(45) NULL,
+  `Version` VARCHAR(45) NULL,
+  PRIMARY KEY (`idSoftware`))
+ENGINE = InnoDB;
 
---
--- AUTO_INCREMENT for table `group`
---
-ALTER TABLE `group`
-  MODIFY `idgroup` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `personnel`
---
-ALTER TABLE `personnel`
-  MODIFY `idPersonnel` int(11) NOT NULL AUTO_INCREMENT;
+-- -----------------------------------------------------
+-- Table `Classroom_has_Softwares`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Classroom_has_Softwares` ;
 
---
--- AUTO_INCREMENT for table `programs`
---
-ALTER TABLE `programs`
-  MODIFY `idPrograms` int(11) NOT NULL AUTO_INCREMENT;
-COMMIT;
+CREATE TABLE IF NOT EXISTS `Classroom_has_Softwares` (
+  `Classroom_idClassroom` INT NOT NULL,
+  `Softwares_idSoftware` INT NOT NULL,
+  PRIMARY KEY (`Classroom_idClassroom`, `Softwares_idSoftware`))
+ENGINE = InnoDB;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
