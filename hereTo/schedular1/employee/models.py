@@ -6,6 +6,7 @@ class Personnels(models.Model):
     firstName = models.CharField(max_length=45)
     lastName = models.CharField(max_length=45)
     personalEmail = models.CharField(max_length=45)
+    hiredate = models.DateField()
     emailMatrix = models.CharField(max_length=45)
     position = models.CharField(max_length=45)
     profession = models.CharField(max_length=45)
@@ -17,9 +18,9 @@ class Personnels(models.Model):
         """
         docstring
         """
-        ordering = ["creation"]
+        ordering = ["hiredate"]
         db_table = "personnels"
-        models = "employee"
+        #models = "employee"
 
 class Availability(models.Model):
     idAvailability = models.AutoField(primary_key=True)
@@ -37,7 +38,7 @@ class Availability(models.Model):
         """
         ordering = ["statTime"]
         db_table = "availabilities"
-        models = "employee"
+        #models = "employee"
 
 class TeacherPreferences(models.Model):
     Personnels_idPersonnel = models.IntegerField()
@@ -50,4 +51,4 @@ class TeacherPreferences(models.Model):
         docstring
         """        
         db_table = "teacherpreferences"
-        models = "employee"
+        #models = "employee"

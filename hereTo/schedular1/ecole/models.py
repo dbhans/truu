@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Cours(model.Model):
+class Cours(models.Model):
     idCours = models.AutoField(primary_key=True)
     Name = models.CharField(max_length=45)
     Code = models.CharField(max_length=10)
@@ -10,15 +10,18 @@ class Cours(model.Model):
     Description = models.TextField()
     status = models.BinaryField()
 
+    def __str__(self):
+        return self.Name,
+
     class Meta():
         """
         docstring
         """
         ordering = ["NumberHours"]
-        db_table = "cours"
-        model = "Classroom"
+        db_table = "cour"
+        #model = "Classroom"
 
-class Classroom(model.Model):
+class Classroom(models.Model):
     idClassroom = models.AutoField(primary_key=True)
     Numberplace = models.CharField(max_length=45)
     Room = models.IntegerField()
@@ -31,9 +34,9 @@ class Classroom(model.Model):
         """
         ordering = ["Room"]
         db_table = "classroom"
-        model = "Classroom"
+        #model = "Classroom"
 
-class Programs(model.Model):
+class Programs(models.Model):
     idPrograms = models.AutoField(primary_key=True)
     Name = models.CharField(max_length=45)
     Code = models.CharField(max_length=45)
@@ -47,9 +50,9 @@ class Programs(model.Model):
         docstring
         """
         db_table = "programs"
-        model = "Classroom"
+        #model = "Classroom"
 
-class Softwares(model.Model):
+class Softwares(models.Model):
     idSoftware = models.AutoField(primary_key=True)
     Name = models.CharField(max_length=45)
     Description = models.CharField(max_length=45)
@@ -62,9 +65,9 @@ class Softwares(model.Model):
         """
         ordering = ["Name"]
         db_table = "softwares"
-        model = "Classroom"
+        #model = "Classroom"
 
-class Classroom_has_Softwares(model.Model):
+class Classroom_has_Softwares(models.Model):
     Classroom_idClassroom = models.IntegerField()
     Softwares_idSoftware = models.IntegerField()
 
@@ -73,25 +76,25 @@ class Classroom_has_Softwares(model.Model):
         docstring
         """ 
         db_table = "classroom_softwares"
-        model = "Classroom"
+        #model = "Classroom"
 
-class Groups(model.Model):
+class Groups(models.Model):
     idgroup = models.AutoField(primary_key=True)
     code = models.CharField(max_length=45)
     description = models.CharField(max_length=45)
     numberstudent = models.CharField(max_length=45)
-    Starting DATE NULL
-    Ending DATE NULL
+    Starting = models.DateField()
+    Ending = models.DateField()
     numberduration = models.IntegerField()
     numbertime = models.CharField(max_length=25)
     status = models.BinaryField()
     Created = models.DateTimeField()
     Modified = models.DateTimeField()
 
-    class Meta():
+    class Meta:
         """
         docstring
         """
         ordering = ["Starting"]
         db_table = "groups"
-        model = "Classroom"
+        #model = "Classroom"

@@ -12,8 +12,8 @@ class Time(models.Model):
         docstring
         """
         ordering = ["startTime","endTime"]
-        db_table = "cours"
-        models = "scheduler"
+        db_table = "Times"
+        #models = "scheduler"
 
 class Semesters(models.Model):
     idSemesters = models.AutoField(primary_key=True)
@@ -27,7 +27,7 @@ class Semesters(models.Model):
         """
         ordering = ["startTime"]
         db_table = "semesters"
-        models = "scheduler"
+        #models = "scheduler"
 
 class Schedule(models.Model):
     Classroom_idClassroom = models.IntegerField()
@@ -44,7 +44,7 @@ class Schedule(models.Model):
         """
         ordering = ["Semesters_idSemesters"]
         db_table = "schedule"
-        models = "scheduler"
+        #models = "scheduler"
 
 class Logs(models.Model):
     idlog = models.AutoField(primary_key=True)
@@ -62,17 +62,17 @@ class Logs(models.Model):
         """
         ordering = ["creation"]
         db_table = "logs"
-        models = "scheduler"
+        #models = "scheduler"
 
 
 class AdminComments(models.Model):
     idAdminComments = models.AutoField(primary_key=True)
     Comment = models.CharField(max_length=255)
-
+    creation = models.DateTimeField()
     class Meta():
         """
         docstring
         """
         ordering = ["creation"]
         db_table = "admincomments"
-        models = "scheduler"
+        #models = "scheduler"
