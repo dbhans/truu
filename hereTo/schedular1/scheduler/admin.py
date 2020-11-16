@@ -2,13 +2,13 @@ from django.contrib import admin
 
 # Register your models here.
 from .models import Time
-from .models import Semesters
+from .models import Semester
 from .models import Schedule
-from .models import Logs
-from .models import AdminComments
+from .models import Log
+from .models import AdminComment
 
 admin.site.register(Time)
-admin.site.register(Semesters)
+admin.site.register(Semester)
 admin.site.register(Schedule)
-admin.site.register(Logs)
-admin.site.register(AdminComments)
+admin.site.register(Log)
+admin.site.register(AdminComment)

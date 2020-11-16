@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class  Logs(models.Model):
+class  Log(models.Model):
     creation = models.DateTimeField()
     modified = models.DateTimeField()
     createdBy = models.IntegerField()
@@ -14,6 +14,6 @@ class  Logs(models.Model):
       
         pass
 
-class AdminComments(models.Model):
+class AdminComment(models.Model):
     comment = models.TextField()
     

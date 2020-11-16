@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Personnels(models.Model):
+class Personnel(models.Model):
     idPersonnel = models.AutoField(primary_key=True)
     firstName = models.CharField(max_length=45)
     lastName = models.CharField(max_length=45)
@@ -40,7 +40,7 @@ class Availability(models.Model):
         db_table = "availabilities"
         #models = "employee"
 
-class TeacherPreferences(models.Model):
+class TeacherPreference(models.Model):
     Personnels_idPersonnel = models.IntegerField()
     Cours_idCours = models.IntegerField()
     Note = models.CharField(max_length=150)

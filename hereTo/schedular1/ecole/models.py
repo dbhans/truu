@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Cours(models.Model):
+class Cour(models.Model):
     idCours = models.AutoField(primary_key=True)
     Name = models.CharField(max_length=45)
     Code = models.CharField(max_length=10)
@@ -9,10 +9,10 @@ class Cours(models.Model):
     NumberHours = models.IntegerField()
     Description = models.TextField()
     status = models.BinaryField()
-
+    """
     def __str__(self):
-        return self.Name,
-
+        return {"Nom" : self.Name,"Code" :self.Code}
+    """
     class Meta():
         """
         docstring
@@ -36,7 +36,7 @@ class Classroom(models.Model):
         db_table = "classroom"
         #model = "Classroom"
 
-class Programs(models.Model):
+class Program(models.Model):
     idPrograms = models.AutoField(primary_key=True)
     Name = models.CharField(max_length=45)
     Code = models.CharField(max_length=45)
@@ -52,7 +52,7 @@ class Programs(models.Model):
         db_table = "programs"
         #model = "Classroom"
 
-class Softwares(models.Model):
+class Software(models.Model):
     idSoftware = models.AutoField(primary_key=True)
     Name = models.CharField(max_length=45)
     Description = models.CharField(max_length=45)
@@ -67,7 +67,7 @@ class Softwares(models.Model):
         db_table = "softwares"
         #model = "Classroom"
 
-class Classroom_has_Softwares(models.Model):
+class Classroom_has_Software(models.Model):
     Classroom_idClassroom = models.IntegerField()
     Softwares_idSoftware = models.IntegerField()
 
@@ -78,7 +78,7 @@ class Classroom_has_Softwares(models.Model):
         db_table = "classroom_softwares"
         #model = "Classroom"
 
-class Groups(models.Model):
+class Group(models.Model):
     idgroup = models.AutoField(primary_key=True)
     code = models.CharField(max_length=45)
     description = models.CharField(max_length=45)

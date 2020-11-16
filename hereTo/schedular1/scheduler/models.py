@@ -15,7 +15,7 @@ class Time(models.Model):
         db_table = "Times"
         #models = "scheduler"
 
-class Semesters(models.Model):
+class Semester(models.Model):
     idSemesters = models.AutoField(primary_key=True)
     semester = models.CharField(max_length=15)
     startTime = models.DateTimeField()
@@ -46,7 +46,7 @@ class Schedule(models.Model):
         db_table = "schedule"
         #models = "scheduler"
 
-class Logs(models.Model):
+class Log(models.Model):
     idlog = models.AutoField(primary_key=True)
     creation = models.DateTimeField()
     modified = models.DateTimeField()
@@ -65,7 +65,7 @@ class Logs(models.Model):
         #models = "scheduler"
 
 
-class AdminComments(models.Model):
+class AdminComment(models.Model):
     idAdminComments = models.AutoField(primary_key=True)
     Comment = models.CharField(max_length=255)
     creation = models.DateTimeField()
